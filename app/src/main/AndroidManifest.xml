@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.blue_beast">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,30 +14,16 @@
         android:theme="@style/Theme.Blue_beast">
 
         <activity
-            android:name=".RedirectActivity"
-            android:exported="true" >
-
+            android:name="net.openid.appauth.RedirectUriReceiverActivity"
+            tools:node="replace">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
                 <data
-                    android:host="com.android.chrome"
-                    android:scheme="https" />
+                    android:host="auth"
+                    android:scheme="in.softpaper.app" />
             </intent-filter>
-
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.VIEW" />-->
-
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-<!--                <category android:name="android.intent.category.BROWSABLE" />-->
-
-<!--                <data-->
-<!--                    android:host="callback"-->
-<!--                    android:scheme="com.softpaper.app" />-->
-<!--            </intent-filter>-->
         </activity>
 
         <activity android:name=".MainActivity">

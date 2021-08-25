@@ -25,7 +25,7 @@ import org.json.JSONException;
 public class MainActivity extends AppCompatActivity {
 
     private ContentValues contentValues = new ContentValues();
-    private Uri MY_REDIRECT_URI = Uri.parse("https://com.android.chrome");
+    private Uri MY_REDIRECT_URI = Uri.parse("in.softpaper.app://auth");
     private String MY_CLIENT_ID = "foo";
     private int RC_AUTH = 100;
     private AuthorizationService mAuthService;
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 new AuthorizationRequest.Builder(
                         serviceConfig, // the authorization service configuration
                         MY_CLIENT_ID, // the client ID, typically pre-registered and static
-                        ResponseTypeValues.ID_TOKEN, // the response_type value: we want a code
+                        ResponseTypeValues.CODE, // the response_type value: we want a code
                         MY_REDIRECT_URI); // the redirect URI to which the auth response is sent
 
         AuthorizationRequest authRequest = authRequestBuilder

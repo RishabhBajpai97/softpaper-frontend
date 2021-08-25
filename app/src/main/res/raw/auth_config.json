@@ -1,6 +1,6 @@
 {
   "client_id": "foo",
-  "redirect_uri": "https://com.android.chrome",
+  "redirect_uri": "in.softpaper.app://auth",
   "end_session_redirect_uri": "https://pacific-island-88998.herokuapp.com/session/end",
   "authorization_scope": "openid email offline_access",
   "discovery_uri": "",

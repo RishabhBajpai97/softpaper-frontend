@@ -15,7 +15,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        manifestPlaceholders = [appAuthRedirectScheme: 'https']
+        manifestPlaceholders = [appAuthRedirectScheme: 'in.softpaper.app']
     }
 
     buildTypes {
