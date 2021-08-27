@@ -2,17 +2,13 @@ package com.example.blue_beast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
-import android.util.Log;
 import android.widget.Toast;
-import net.openid.appauth.AuthState;
 import net.openid.appauth.AuthorizationException;
 import net.openid.appauth.AuthorizationRequest;
 import net.openid.appauth.AuthorizationResponse;
@@ -20,7 +16,6 @@ import net.openid.appauth.AuthorizationService;
 import net.openid.appauth.AuthorizationServiceConfiguration;
 import net.openid.appauth.ResponseTypeValues;
 import net.openid.appauth.TokenResponse;
-import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -71,29 +66,36 @@ public class MainActivity extends AppCompatActivity {
             if(resp!=null) {
                 mAuthService.performTokenRequest(
                         resp.createTokenExchangeRequest(),
-                        new AuthorizationService.TokenResponseCallback() {
-                            @Override public void onTokenRequestCompleted(
-                                    TokenResponse resp, AuthorizationException ex) {
-                                if (resp != null) {
-                                    // exchange succeeded
-                                    Log.e("TAG", "onTokenRequestCompleted: " + resp.accessToken );
-                                    contentValues.put("token", resp.accessToken);
-                                    Uri uri = getContentResolver().insert(TokenProvider.CONTENT_URI,
-                                            contentValues);
+                        (resp1, ex1) -> {
+                            if (resp1 != null) {
+                                // exchange succeeded
+                                storeTokenLocally(resp1);
 
-                                    Toast.makeText(MainActivity.this, uri.toString(), Toast.LENGTH_LONG).show();
-                                } else {
-                                    // authorization failed, check ex for more details
-                                }
-                            }
+                            }  // authorization failed, check ex for more details
+
                         });
             }
-            else {
-                Log.e("TAG", "onActivityResult: " + "null" );
-            }
+        }
+    }
 
-        } else {
-            // ...
+    private void storeTokenLocally(TokenResponse resp) {
+        contentValues.put("token", resp.accessToken);
+
+        @SuppressLint("Recycle")
+        Cursor cursor = TokenProvider.getDbInstance().rawQuery(
+                "SELECT * FROM " + TokenProvider.getDbTable(), null);
+
+        if(cursor.getCount() == 0) {
+            Uri uri = getContentResolver().insert(TokenProvider.CONTENT_URI,
+                    contentValues);
+            Toast.makeText(MainActivity.this, uri.toString(),
+                    Toast.LENGTH_LONG).show();
+        }
+        else {
+            int uri = getContentResolver().update(TokenProvider.CONTENT_URI,
+                    contentValues, null, null);
+            Toast.makeText(MainActivity.this, String.valueOf(uri),
+                    Toast.LENGTH_LONG).show();
         }
     }
 }

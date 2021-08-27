@@ -23,7 +23,7 @@ public class TokenProvider extends ContentProvider {
     public static final String AUTHORITY = "in.softpaper.blue_beast.token_provider";
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + DB_TABLE);
 
-    private SQLiteDatabase myDb;
+    private static SQLiteDatabase myDb;
 
     static UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static {
@@ -38,6 +38,14 @@ public class TokenProvider extends ContentProvider {
         myDb = tokenDatabase.getWritableDatabase();
 
         return myDb != null;
+    }
+
+    public static SQLiteDatabase getDbInstance() {
+        return myDb;
+    }
+
+    public static String getDbTable() {
+        return DB_TABLE;
     }
 
     @Nullable
@@ -81,7 +89,16 @@ public class TokenProvider extends ContentProvider {
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s,
                       @Nullable String[] strings) {
-        return 0;
+        int count = 0;
+        switch (uriMatcher.match(uri)) {
+            case 1:
+                count = myDb.update(DB_TABLE, contentValues, s, strings);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI " + uri);
+        }
+        getContext().getContentResolver().notifyChange(uri, null);
+        return count;
     }
 
     private class TokenDatabase extends SQLiteOpenHelper {
