@@ -1,18 +1,17 @@
-package com.example.blue_beast;
+package in.softpaper.blue_beast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
+
 import androidx.annotation.Nullable;
-import android.annotation.SuppressLint;
+
 import android.content.ContentValues;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
-import android.widget.Toast;
-import net.openid.appauth.AuthState;
+
+import in.softpaper.blue_beast.R;
+
 import net.openid.appauth.AuthorizationException;
 import net.openid.appauth.AuthorizationRequest;
 import net.openid.appauth.AuthorizationResponse;
@@ -20,7 +19,6 @@ import net.openid.appauth.AuthorizationService;
 import net.openid.appauth.AuthorizationServiceConfiguration;
 import net.openid.appauth.ResponseTypeValues;
 import net.openid.appauth.TokenResponse;
-import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity {
 

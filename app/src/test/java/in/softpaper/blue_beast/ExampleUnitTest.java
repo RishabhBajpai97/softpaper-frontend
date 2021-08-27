@@ -1,4 +1,4 @@
-package com.example.blue_beast;
+package in.softpaper.blue_beast;
 
 import org.junit.Test;
 

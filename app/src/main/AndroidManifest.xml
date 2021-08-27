@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.blue_beast">
+    package="in.softpaper.blue_beast">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity">
+        <activity android:name="in.softpaper.blue_beast.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
