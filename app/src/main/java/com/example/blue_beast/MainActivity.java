@@ -77,6 +77,11 @@ public class MainActivity extends AppCompatActivity {
                                 if (resp != null) {
                                     // exchange succeeded
                                     Log.e("TAG", "onTokenRequestCompleted: " + resp.accessToken );
+                                    contentValues.put("token", resp.accessToken);
+                                    Uri uri = getContentResolver().insert(TokenProvider.CONTENT_URI,
+                                            contentValues);
+
+                                    Toast.makeText(MainActivity.this, uri.toString(), Toast.LENGTH_LONG).show();
                                 } else {
                                     // authorization failed, check ex for more details
                                 }

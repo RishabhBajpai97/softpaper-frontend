@@ -33,6 +33,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name=".TokenProvider"
+            android:authorities="in.softpaper.blue_beast.token_provider"
+            android:enabled="true"
+            android:exported="true"/>
     </application>
 
 </manifest>
